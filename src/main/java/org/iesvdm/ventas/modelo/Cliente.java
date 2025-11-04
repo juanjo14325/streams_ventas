@@ -2,13 +2,15 @@ package org.iesvdm.ventas.modelo;
 // Generated 15 dic. 2022 23:59:33 by Hibernate Tools 5.6.9.Final
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@Builder
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Cliente implements java.io.Serializable {
@@ -27,4 +29,10 @@ public class Cliente implements java.io.Serializable {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
     private Set<Pedido> pedidos;
 
+    public Cliente() {
+
+    }
+
+    public Cliente(int id, String apellido1, String apellido2, String ciudad, String categoria) {
+    }
 }

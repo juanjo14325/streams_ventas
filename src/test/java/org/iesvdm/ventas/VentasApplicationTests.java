@@ -1,5 +1,6 @@
 package org.iesvdm.ventas;
 
+import org.iesvdm.ventas.dao.ClienteDAO;
 import org.iesvdm.ventas.modelo.Cliente;
 import org.iesvdm.ventas.modelo.Comercial;
 import org.iesvdm.ventas.modelo.Pedido;
@@ -13,11 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import static org.iesvdm.ventas.dao.ClienteDAO.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
@@ -31,6 +30,9 @@ class VentasApplicationTests {
 
     @Autowired
     private ComercialRepository comercialRepository;
+
+    @Autowired
+    ClienteDAO clienteDAO;
 
 
     @Test
@@ -72,6 +74,61 @@ class VentasApplicationTests {
 
 
     }
+
+    @Test
+    void testCreate(){
+        Cliente cliente = Cliente.builder().nombre("Jose")
+                .apellido1("Martin")
+                .apellido2("Tejero")
+                .ciudad("Málaga")
+                .categoria(1)
+                .build();
+        System.out.println("Antes de crear id: " + cliente.getId());
+
+        clienteDAO.create(cliente);
+
+        System.out.println("Después de crear id: " + cliente.getId());
+    }
+
+    @Test
+    void testUpdate(){
+
+        Cliente cliente = Cliente.builder().nombre("José")
+                .apellido1("Martín")
+                .apellido2("Tejero")
+                .ciudad("Málaga")
+                .categoria(1)
+                .build();
+
+        clienteDAO.create(cliente);
+
+        clienteDAO.delete(cliente.getId());
+
+        Optional<Cliente> optionalClienteReal = clienteDAO.find(cliente.getId());
+
+        Assertions.assertTrue(optionalClienteReal.isEmpty());
+
+    }
+
+    @Test
+    void testDelete(){
+
+        Cliente cliente = Cliente.builder().nombre("José")
+                .apellido1("Martín")
+                .apellido2("Tejero")
+                .ciudad("Málaga")
+                .categoria(1)
+                .build();
+
+        clienteDAO.create(cliente);
+
+        clienteDAO.delete(cliente.getId());
+
+        Optional<Cliente> optionalClienteReal = clienteDAO.find(cliente.getId());
+
+        Assertions.assertTrue(optionalClienteReal.isEmpty());
+    }
+
     /**
      * 1. Devuelve un listado de todos los pedidos que se realizaron durante el año 2017,
      * cuya cantidad total sea superior a 500€.
