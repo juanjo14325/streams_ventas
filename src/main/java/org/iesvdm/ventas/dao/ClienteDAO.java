@@ -1,10 +1,12 @@
 package org.iesvdm.ventas.dao;
-
+import lombok.AllArgsConstructor;
 import org.iesvdm.ventas.modelo.Cliente;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository("sqlImpl")
 public interface ClienteDAO {
 
         //Mapear operaciones CRUD a BBDD

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.ventas.modelo.Cliente;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +23,8 @@ import java.util.Optional;
 @Repository
 public class ClienteDaoImpl implements ClienteDAO{
 
+
+    @Qualifier("clienteDaoImpl")
     @Autowired
     ClienteDAO clienteDAO;
 
