@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo TH2 TEXT</title>
+</head>
+<body>
+    <p>
+        Párrafo
+    </p>
+
+    <th:block th:if="${escritores.size() > 0}">
+        <div th:each="escritor: ${escritores}">
+            <span th:text="${escritor.nombre}">Escritor</span>
+        </div>
+    </th:block>
+    </p>
+</body>
+</html>
