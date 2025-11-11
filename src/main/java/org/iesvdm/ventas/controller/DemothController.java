@@ -1,9 +1,14 @@
 package org.iesvdm.ventas.controller;
 
 import jakarta.servlet.http.HttpSession;
+import org.iesvdm.ventas.dao.ClienteDAO;
 import org.iesvdm.ventas.modelo.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -66,5 +71,37 @@ public class DemothController {
         model.addAttribute("cliente",cliente);
 
         return "plantilla5";
+    }
+
+    @GetMapping("/demoth/crear")
+    public String demothCrear(Model model){
+
+        Cliente cliente = new Cliente();
+        model.addAttribute("cliente",cliente);
+
+        return "demoth-crear";
+
+
+    }
+
+    //@Autowired
+    private ClienteDAO clienteDAO;
+
+    @PostMapping("/demoth/crear")
+    public String demothCrearSubmit(@ModelAttribute Cliente cliente){
+
+        clienteDAO.create(cliente);
+
+        return "redirect:/demoth/listar";
+    }
+
+    @GetMapping("demoth/listar")
+    public String demothListarCliente(Model model){
+
+        List<Cliente> clientes =clienteDAO.getAll();
+        model.addAttribute("clientes",clientes);
+
+        return "demoth-listar";
+
     }
 }
